@@ -12,26 +12,22 @@
         </p>
 
         <h1 class="text-2xl md:text-3xl font-bold text-[#2B2B2B]">
-            Add New Product
+            Edit Product
         </h1>
-
-        <p class="text-gray-500 mt-3 text-sm md:text-base">
-            Create elegant furniture product for your store collection.
-        </p>
 
     </div>
 
     <!-- FORM -->
     <div class="bg-white border border-[#EFE7DC] rounded-[36px] shadow-sm overflow-hidden">
 
-        <form action="/admin/products"
+        <form action="/admin/products/{{ $product->id }}"
               method="POST"
               enctype="multipart/form-data"
               class="p-5 md:p-8">
 
             @csrf
+            @method('PUT')
 
-            <!-- GRID -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                 <!-- NAME -->
@@ -43,7 +39,8 @@
 
                     <input type="text"
                            name="name"
-                           class="w-full bg-[#FAF7F2] border border-[#E7DED3] rounded-2xl px-5 py-4 outline-none focus:border-[#8B5E3C]">
+                           value="{{ $product->name }}"
+                           class="w-full bg-[#FAF7F2] border border-[#E7DED3] rounded-2xl px-5 py-4">
 
                 </div>
 
@@ -56,7 +53,8 @@
 
                     <input type="number"
                            name="price"
-                           class="w-full bg-[#FAF7F2] border border-[#E7DED3] rounded-2xl px-5 py-4 outline-none focus:border-[#8B5E3C]">
+                           value="{{ $product->price }}"
+                           class="w-full bg-[#FAF7F2] border border-[#E7DED3] rounded-2xl px-5 py-4">
 
                 </div>
 
@@ -69,7 +67,8 @@
 
                     <input type="number"
                            name="stock"
-                           class="w-full bg-[#FAF7F2] border border-[#E7DED3] rounded-2xl px-5 py-4 outline-none focus:border-[#8B5E3C]">
+                           value="{{ $product->stock }}"
+                           class="w-full bg-[#FAF7F2] border border-[#E7DED3] rounded-2xl px-5 py-4">
 
                 </div>
 
@@ -81,16 +80,15 @@
                     </label>
 
                     <select name="category_id"
-                            class="w-full bg-[#FAF7F2] border border-[#E7DED3] rounded-2xl px-5 py-4 outline-none focus:border-[#8B5E3C]">
-
-                        <option value="">
-                            Select Category
-                        </option>
+                            class="w-full bg-[#FAF7F2] border border-[#E7DED3] rounded-2xl px-5 py-4">
 
                         @foreach($categories as $category)
 
-                        <option value="{{ $category->id }}">
+                        <option value="{{ $category->id }}"
+                            {{ $product->category_id == $category->id ? 'selected' : '' }}>
+
                             {{ $category->name }}
+
                         </option>
 
                         @endforeach
@@ -107,16 +105,15 @@
                     </label>
 
                     <select name="material_id"
-                            class="w-full bg-[#FAF7F2] border border-[#E7DED3] rounded-2xl px-5 py-4 outline-none focus:border-[#8B5E3C]">
-
-                        <option value="">
-                            Select Material
-                        </option>
+                            class="w-full bg-[#FAF7F2] border border-[#E7DED3] rounded-2xl px-5 py-4">
 
                         @foreach($materials as $material)
 
-                        <option value="{{ $material->id }}">
+                        <option value="{{ $material->id }}"
+                            {{ $product->material_id == $material->id ? 'selected' : '' }}>
+
                             {{ $material->name }}
+
                         </option>
 
                         @endforeach
@@ -133,16 +130,15 @@
                     </label>
 
                     <select name="style_id"
-                            class="w-full bg-[#FAF7F2] border border-[#E7DED3] rounded-2xl px-5 py-4 outline-none focus:border-[#8B5E3C]">
-
-                        <option value="">
-                            Select Style
-                        </option>
+                            class="w-full bg-[#FAF7F2] border border-[#E7DED3] rounded-2xl px-5 py-4">
 
                         @foreach($styles as $style)
 
-                        <option value="{{ $style->id }}">
+                        <option value="{{ $style->id }}"
+                            {{ $product->style_id == $style->id ? 'selected' : '' }}>
+
                             {{ $style->name }}
+
                         </option>
 
                         @endforeach
@@ -162,7 +158,7 @@
 
                 <textarea name="description"
                           rows="5"
-                          class="w-full bg-[#FAF7F2] border border-[#E7DED3] rounded-3xl px-5 py-4 outline-none focus:border-[#8B5E3C]"></textarea>
+                          class="w-full bg-[#FAF7F2] border border-[#E7DED3] rounded-3xl px-5 py-4">{{ $product->description }}</textarea>
 
             </div>
 
@@ -183,9 +179,9 @@
             <div class="mt-8 flex flex-col sm:flex-row gap-4">
 
                 <button type="submit"
-                        class="bg-[#8B5E3C] hover:bg-[#6B4636] transition text-white px-8 py-4 rounded-2xl font-medium shadow-lg shadow-[#8B5E3C]/20">
+                        class="bg-[#8B5E3C] hover:bg-[#6B4636] transition text-white px-8 py-4 rounded-2xl font-medium">
 
-                    Simpan Produk
+                    Update Produk
 
                 </button>
 

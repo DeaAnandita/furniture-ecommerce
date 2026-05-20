@@ -72,6 +72,7 @@
     </style>
 </head>
 
+
 <body class="text-[#2B2B2B] antialiased">
 
 <!-- NAVBAR -->
@@ -136,49 +137,45 @@
             </div>
 
             <!-- RIGHT -->
-            <div class="hidden md:flex items-center gap-3 relative"
-                >
+            <div class="hidden md:flex items-center gap-3">
 
                 <!-- SEARCH -->
-                <!-- SEARCH -->
-<form action="{{ url('/products') }}"
-      method="GET"
-      class="hidden lg:flex items-center bg-white border border-[#E7DED3] rounded-full px-3 py-2 shadow-sm focus-within:ring-2 focus-within:ring-[#8B5E3C]/20 transition">
+                <form action="{{ url('/products') }}"
+                    method="GET"
+                    class="hidden lg:flex items-center bg-white border border-[#E7DED3] rounded-full px-3 py-2 shadow-sm focus-within:ring-2 focus-within:ring-[#8B5E3C]/20 transition">
 
-    <!-- ICON -->
-    <svg xmlns="http://www.w3.org/2000/svg"
-         fill="none"
-         viewBox="0 0 24 24"
-         stroke-width="1.8"
-         stroke="currentColor"
-         class="w-5 h-5 text-gray-400 ml-1">
+                    <!-- ICON -->
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.8"
+                        stroke="currentColor"
+                        class="w-5 h-5 text-gray-400 ml-1">
 
-        <path stroke-linecap="round"
-              stroke-linejoin="round"
-              d="m21 21-4.35-4.35m0 0A7.95 7.95 0 1 0 5.4 5.4a7.95 7.95 0 0 0 11.25 11.25Z" />
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m21 21-4.35-4.35m0 0A7.95 7.95 0 1 0 5.4 5.4a7.95 7.95 0 0 0 11.25 11.25Z" />
 
-    </svg>
+                    </svg>
 
-    <!-- INPUT -->
-    <input type="text"
-           name="search"
-           value="{{ request('search') }}"
-           placeholder="Search furniture..."
-           class="w-52 xl:w-64 bg-transparent border-none focus:ring-0 outline-none text-sm px-3 py-1 placeholder:text-gray-400">
+                    <input type="text"
+                        name="search"
+                        value="{{ request('search') }}"
+                        placeholder="Search furniture..."
+                        class="w-44 xl:w-56 bg-transparent border-none focus:ring-0 outline-none text-sm px-3 py-1 placeholder:text-gray-400">
 
-    <!-- BUTTON -->
-    <button type="submit"
-            class="bg-[#8B5E3C] hover:bg-[#6F472D] text-white text-sm px-5 py-2 rounded-full transition">
+                    <button type="submit"
+                            class="bg-[#8B5E3C] hover:bg-[#6F472D] text-white text-sm px-4 py-2 rounded-full transition">
 
-        Search
+                        Search
 
-    </button>
+                    </button>
 
-</form>
+                </form>
 
                 <!-- CART -->
                 <a href="/cart"
-                   class="relative w-11 h-11 rounded-full bg-[#8B5E3C] text-white flex items-center justify-center shadow-md hover:scale-105 transition duration-300">
+                   class="relative w-11 h-11 rounded-full bg-[#8B5E3C] text-white flex items-center justify-center shadow-md hover:scale-105 transition duration-300 shrink-0">
 
                     <svg xmlns="http://www.w3.org/2000/svg"
                          fill="none"
@@ -194,7 +191,7 @@
                     </svg>
 
                     <!-- BADGE -->
-                    <span class="cart-badge absolute -top-1 -right-1 bg-[#D9A066] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center shadow">
+                    <span id="cart-count" class=" cart-badge absolute -top-1 -right-1 bg-[#D9A066] text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center shadow transition duration-200">
                         {{ \App\Models\Cart::where('user_id', auth()->id())->count('quantity') }}
                     </span>
 
@@ -204,41 +201,41 @@
 
                 <!-- DROPDOWN -->
                 <div x-data="{ open: false }"
-                     class="relative">
+                     class="relative shrink-0">
 
-                    <!-- BUTTON -->
                     <button @click="open = !open"
-                            class="flex items-center gap-3 pl-2 pr-4 py-2 bg-white border border-[#E7DED3] rounded-full shadow-sm hover:shadow-md transition">
+                        class="flex items-center gap-3 pl-2 pr-4 py-2 bg-white border border-[#E7DED3] rounded-full shadow-sm hover:shadow-md transition max-w-[180px]">
 
-                        <!-- AVATAR -->
-                        <div class="w-10 h-10 rounded-full bg-[#8B5E3C] text-white flex items-center justify-center text-sm font-semibold shadow-sm">
+                    <!-- AVATAR -->
+                    <div class="w-10 h-10 rounded-full bg-[#8B5E3C] text-white flex items-center justify-center text-sm font-semibold shadow-sm shrink-0">
 
-                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
 
-                        </div>
+                    </div>
 
-                        <span class="font-medium text-sm">
+                    <!-- NAME -->
+                    <span class="font-medium text-sm truncate">
 
-                            {{ auth()->user()->name }}
+                        {{ auth()->user()->name }}
 
-                        </span>
+                    </span>
 
-                        <!-- ICON -->
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                             fill="none"
-                             viewBox="0 0 24 24"
-                             stroke-width="2"
-                             stroke="currentColor"
-                             class="w-4 h-4 transition duration-300"
-                             :class="{ 'rotate-180': open }">
+                    <!-- ICON -->
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="2"
+                            stroke="currentColor"
+                            class="w-4 h-4 transition duration-300 shrink-0"
+                            :class="{ 'rotate-180': open }">
 
-                            <path stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  d="M19 9l-7 7-7-7" />
+                        <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M19 9l-7 7-7-7" />
 
-                        </svg>
+                    </svg>
 
-                    </button>
+                </button>
 
                     <!-- MENU -->
                     <div x-show="open"

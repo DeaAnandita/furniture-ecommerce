@@ -20,6 +20,8 @@ use App\Http\Controllers\ProfileController;
 // Admin
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\DashboardController;
+
 
 
 /*
@@ -52,7 +54,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'index']);
 
     // Checkout
-    Route::post('/checkout', [CheckoutController::class, 'checkout']);
+    Route::post('/checkout', [CheckoutController::class, 'store']);
+    Route::post('/checkout', [CheckoutController::class, 'store'])
+    ->name('checkout.store');
 
     // Payment
     Route::get('/payment/{id}', [PaymentController::class, 'index']);
@@ -93,23 +97,26 @@ Route::middleware(['auth', 'admin'])
     ->prefix('admin')
     ->group(function () {
 
-    /*
-    |--------------------------------------------------------------------------
-    | PRODUCT CRUD
-    |--------------------------------------------------------------------------
-    */
+    Route::get('/dashboard', [DashboardController::class, 'index']);
 
     Route::resource('/products', AdminProductController::class);
 
-    /*
-    |--------------------------------------------------------------------------
-    | ORDER / LAPORAN
-    |--------------------------------------------------------------------------
-    */
-
-    Route::get('/orders', [AdminOrderController::class, 'index']);
+    Route::get('/products/{id}/edit', [AdminProductController::class, 'edit']);
+    Route::put('/products/{id}', [AdminProductController::class, 'update']);
+    Route::delete('/products/{id}', [AdminProductController::class, 'destroy']);
 
 });
+
+Route::prefix('admin')
+    ->middleware('auth')
+    ->group(function () {
+
+        Route::get('/orders', [AdminOrderController::class, 'index']);
+        Route::get('/orders/{id}', [AdminOrderController::class, 'show']);
+
+        Route::put('/orders/{id}/status', [AdminOrderController::class, 'updateStatus']);
+
+    });
 
 
 /*

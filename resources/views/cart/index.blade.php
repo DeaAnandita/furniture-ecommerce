@@ -2,43 +2,23 @@
 
 @section('content')
 
-<style>
+@if(session('success'))
 
-    .cart-card{
-        background: white;
-        border-radius: 28px;
-        border: 1px solid #E8DED1;
-        transition: 0.3s ease;
-    }
+<div class="mb-5 bg-green-100 border border-green-200 text-green-700 px-5 py-4 rounded-2xl">
+    {{ session('success') }}
+</div>
 
-    .cart-card:hover{
-        box-shadow: 0 10px 25px rgba(0,0,0,0.06);
-    }
+@endif
 
-    .qty-btn{
-        width: 34px;
-        height: 34px;
-        border-radius: 12px;
-        background: #F5EFE6;
-        transition: 0.2s;
-    }
+@if(session('error'))
 
-    .qty-btn:hover{
-        background: #E7D8C7;
-    }
+<div class="mb-5 bg-red-100 border border-red-200 text-red-700 px-5 py-4 rounded-2xl">
+    {{ session('error') }}
+</div>
 
-    .checkout-btn{
-        background: #7D5548;
-        transition: 0.3s;
-    }
+@endif
 
-    .checkout-btn:hover{
-        background: #68453A;
-    }
-
-</style>
-
-<section class="max-w-7xl mx-auto pb-32 lg:pb-6">
+<section class="max-w-7xl mx-auto pb-32 lg:pb-10">
 
     <!-- TITLE -->
     <div class="mb-8 md:mb-10">
@@ -71,7 +51,7 @@
         </p>
 
         <a href="/"
-           class="inline-block px-6 py-3 rounded-2xl text-white checkout-btn">
+           class="inline-block px-6 py-3 rounded-2xl bg-[#8B5E3C] hover:bg-[#6F472D] text-white transition">
 
             Belanja Sekarang
 
@@ -81,92 +61,126 @@
 
     @else
 
-    <div class="grid lg:grid-cols-3 gap-6">
+    <form action="{{ route('checkout.store') }}"
+          method="POST">
 
-        <!-- LEFT -->
-        <div class="lg:col-span-2 space-y-5">
+        @csrf
 
-            @php
-                $grandTotal = 0;
-            @endphp
+        <div class="grid lg:grid-cols-3 gap-6">
 
-            @foreach($carts as $cart)
+            <!-- LEFT -->
+            <div class="lg:col-span-2 space-y-4">
 
-            @php
-                $subtotal = $cart->product->price * $cart->quantity;
-                $grandTotal += $subtotal;
-            @endphp
+                @foreach($carts as $cart)
 
-            <div class="cart-card p-4 md:p-6">
+                @php
+                    $subtotal = $cart->product->price * $cart->quantity;
+                @endphp
 
-                <div class="flex gap-4 md:gap-6">
+                <div class="bg-white border border-[#EFE7DC] rounded-[26px] overflow-hidden shadow-sm hover:shadow-md transition">
 
-                    <!-- IMAGE -->
-                    <img src="{{ asset('products/' . $cart->product->image) }}"
-                         class="w-28 h-28 md:w-36 md:h-36 rounded-2xl object-cover">
+                    <div class="flex items-center gap-3 p-3 md:p-5">
 
-                    <!-- CONTENT -->
-                    <div class="flex-1">
+                        <!-- CHECKBOX -->
+                        <div class="shrink-0">
 
-                        <p class="text-xs uppercase tracking-[2px] text-[#C97B63] mb-2">
-                            {{ $cart->product->category }}
-                        </p>
+                            <input type="checkbox"
+                                   name="selected_items[]"
+                                   value="{{ $cart->id }}"
+                                   checked
+                                   data-price="{{ $subtotal }}"
+                                   data-qty="{{ $cart->quantity }}"
+                                   class="cart-checkbox w-5 h-5 rounded border-[#D6C5B4] text-[#8B5E3C] focus:ring-[#8B5E3C]">
 
-                        <h2 class="text-lg md:text-2xl font-semibold mb-2">
-                            {{ $cart->product->name }}
-                        </h2>
+                        </div>
 
-                        <p class="text-sm text-gray-500 line-clamp-2 mb-4">
-                            {{ $cart->product->description }}
-                        </p>
+                        <!-- IMAGE -->
+                        <div class="w-24 h-24 md:w-32 md:h-32 shrink-0">
 
-                        <!-- BOTTOM -->
-                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                            <img src="{{ asset('produk/' . $cart->product->image) }}"
+                                 class="w-full h-full object-cover rounded-2xl">
 
-                            <!-- PRICE -->
-                            <div>
+                        </div>
 
-                                <p class="text-xl font-bold text-[#8B5E3C]">
-                                    Rp {{ number_format($cart->product->price) }}
-                                </p>
+                        <!-- CONTENT -->
+                        <div class="flex-1 min-w-0">
 
-                                <p class="text-sm text-gray-500">
-                                    Subtotal:
-                                    Rp {{ number_format($subtotal) }}
-                                </p>
+                            <p class="uppercase tracking-[2px] text-[10px] text-[#B08968] mb-1">
 
-                            </div>
+                                {{ $cart->product->category?->name }}
 
-                            <!-- QTY -->
-                            <div class="flex items-center gap-3">
+                            </p>
 
-                                <!-- MINUS -->
-                                <form action="/cart/minus/{{ $cart->id }}"
-                                      method="POST">
+                            <h2 class="text-sm md:text-xl font-semibold text-[#2B2B2B] line-clamp-1 mb-1">
 
-                                    @csrf
+                                {{ $cart->product->name }}
 
-                                    <button class="qty-btn">
-                                        −
-                                    </button>
+                            </h2>
 
-                                </form>
+                            <p class="hidden md:block text-sm text-gray-500 line-clamp-2 mb-4">
 
-                                <span class="font-semibold text-lg w-6 text-center">
-                                    {{ $cart->quantity }}
-                                </span>
+                                {{ $cart->product->description }}
 
-                                <!-- PLUS -->
-                                <form action="/cart/plus/{{ $cart->id }}"
-                                      method="POST">
+                            </p>
 
-                                    @csrf
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
 
-                                    <button class="qty-btn">
-                                        +
-                                    </button>
+                                <!-- PRICE -->
+                                <div>
 
-                                </form>
+                                    <h3 class="text-base md:text-xl font-bold text-[#7D5548]">
+
+                                        Rp {{ number_format($cart->product->price) }}
+
+                                    </h3>
+
+                                    <p class="text-xs md:text-sm text-gray-500 mt-1">
+
+                                        Subtotal :
+                                        Rp {{ number_format($subtotal) }}
+
+                                    </p>
+
+                                </div>
+
+                                <!-- QTY -->
+                                <div class="flex items-center gap-2">
+
+                                    <form action="/cart/minus/{{ $cart->id }}"
+                                          method="POST">
+
+                                        @csrf
+
+                                        <button type="submit"
+                                                class="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-[#F5EFE6] hover:bg-[#E7D8C7] transition text-base">
+
+                                            −
+
+                                        </button>
+
+                                    </form>
+
+                                    <div class="w-8 text-center font-semibold">
+
+                                        {{ $cart->quantity }}
+
+                                    </div>
+
+                                    <form action="/cart/plus/{{ $cart->id }}"
+                                          method="POST">
+
+                                        @csrf
+
+                                        <button type="submit"
+                                                class="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-[#F5EFE6] hover:bg-[#E7D8C7] transition text-base">
+
+                                            +
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
 
                             </div>
 
@@ -176,131 +190,172 @@
 
                 </div>
 
+                @endforeach
+
             </div>
 
-            @endforeach
+            <!-- RIGHT -->
+            <div>
+
+                <div class="hidden lg:block bg-white border border-[#E8DED1] rounded-[30px] p-6 sticky top-28">
+
+                    <h2 class="text-2xl font-semibold mb-6">
+                        Order Summary
+                    </h2>
+
+                    <div class="space-y-4 mb-6">
+
+                        <div class="flex justify-between text-sm">
+
+                            <span class="text-gray-500">
+                                Total Item
+                            </span>
+
+                            <span id="desktopTotalItems">
+                                0
+                            </span>
+
+                        </div>
+
+                        <div class="flex justify-between text-sm">
+
+                            <span class="text-gray-500">
+                                Shipping
+                            </span>
+
+                            <span>
+                                Free
+                            </span>
+
+                        </div>
+
+                        <div class="border-t pt-4 flex justify-between text-lg font-bold">
+
+                            <span>
+                                Total
+                            </span>
+
+                            <span class="text-[#8B5E3C]"
+                                  id="desktopGrandTotal">
+
+                                Rp 0
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <button type="submit"
+                            class="w-full bg-[#8B5E3C] hover:bg-[#6F472D] transition text-white py-4 rounded-full font-medium">
+
+                        Checkout Now
+
+                    </button>
+
+                </div>
+
+            </div>
 
         </div>
 
-        <!-- RIGHT -->
-<div>
+        <!-- MOBILE STICKY -->
+        <div class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[#E8DED1] px-5 py-4 shadow-[0_-5px_20px_rgba(0,0,0,0.05)]">
 
-    <!-- DESKTOP -->
-    <div class="hidden lg:block bg-white border border-[#E8DED1] rounded-[30px] p-6 sticky top-28">
+            <div class="flex items-center justify-between mb-3">
 
-        <h2 class="text-2xl font-semibold mb-6">
-            Order Summary
-        </h2>
+                <div>
 
-        <div class="space-y-4 mb-6">
+                    <p class="text-xs text-gray-500">
+                        Total
+                    </p>
 
-            <div class="flex justify-between text-sm">
+                    <h3 class="text-xl font-bold text-[#8B5E3C]"
+                        id="mobileGrandTotal">
 
-                <span class="text-gray-500">
-                    Total Item
-                </span>
+                        Rp 0
 
-                <span>
-                    {{ $carts->sum('quantity') }}
-                </span>
+                    </h3>
 
-            </div>
+                </div>
 
-            <div class="flex justify-between text-sm">
+                <div class="text-right">
 
-                <span class="text-gray-500">
-                    Shipping
-                </span>
+                    <p class="text-xs text-gray-500">
+                        Items
+                    </p>
 
-                <span>
-                    Free
-                </span>
+                    <p class="font-semibold"
+                       id="mobileTotalItems">
 
-            </div>
+                        0
 
-            <div class="border-t pt-4 flex justify-between text-lg font-bold">
+                    </p>
 
-                <span>
-                    Total
-                </span>
-
-                <span class="text-[#8B5E3C]">
-                    Rp {{ number_format($grandTotal) }}
-                </span>
+                </div>
 
             </div>
 
-        </div>
-
-        <form action="/checkout"
-              method="POST">
-
-            @csrf
-
-            <button class="checkout-btn w-full text-white py-4 rounded-2xl font-medium">
+            <button type="submit"
+                    class="w-full bg-[#8B5E3C] hover:bg-[#6F472D] transition text-white py-3 rounded-2xl font-medium">
 
                 Checkout Now
 
             </button>
 
-        </form>
-
-    </div>
-
-</div>
-
-<!-- MOBILE STICKY BOTTOM -->
-<div class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[#E8DED1] px-5 py-4 shadow-[0_-5px_20px_rgba(0,0,0,0.05)]">
-
-    <div class="flex items-center justify-between mb-3">
-
-        <div>
-
-            <p class="text-xs text-gray-500">
-                Total
-            </p>
-
-            <h3 class="text-xl font-bold text-[#8B5E3C]">
-                Rp {{ number_format($grandTotal) }}
-            </h3>
-
         </div>
-
-        <div class="text-right">
-
-            <p class="text-xs text-gray-500">
-                Items
-            </p>
-
-            <p class="font-semibold">
-                {{ $carts->sum('quantity') }}
-            </p>
-
-        </div>
-
-    </div>
-
-    <form action="/checkout"
-          method="POST">
-
-        @csrf
-
-        <button class="checkout-btn w-full text-white py-3 rounded-2xl font-medium">
-
-            Checkout Now
-
-        </button>
 
     </form>
-
-</div>
-
-        </div>
-
-    </div>
 
     @endif
 
 </section>
+
+<!-- SCRIPT -->
+<script>
+
+    const checkboxes = document.querySelectorAll('.cart-checkbox');
+
+    const desktopTotal = document.getElementById('desktopGrandTotal');
+    const desktopItems = document.getElementById('desktopTotalItems');
+
+    const mobileTotal = document.getElementById('mobileGrandTotal');
+    const mobileItems = document.getElementById('mobileTotalItems');
+
+    function updateSummary() {
+
+        let total = 0;
+        let items = 0;
+
+        checkboxes.forEach((checkbox) => {
+
+            if (checkbox.checked) {
+
+                total += parseInt(checkbox.dataset.price);
+                items += parseInt(checkbox.dataset.qty);
+
+            }
+
+        });
+
+        const formatted = 'Rp ' + total.toLocaleString('id-ID');
+
+        desktopTotal.innerText = formatted;
+        mobileTotal.innerText = formatted;
+
+        desktopItems.innerText = items;
+        mobileItems.innerText = items;
+
+    }
+
+    checkboxes.forEach((checkbox) => {
+
+        checkbox.addEventListener('change', updateSummary);
+
+    });
+
+    updateSummary();
+
+</script>
 
 @endsection

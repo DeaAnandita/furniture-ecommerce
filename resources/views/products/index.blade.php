@@ -40,6 +40,17 @@
     .product-card:hover .product-image img{
         transform: scale(1.05);
     }
+    .product-card,
+    .group{
+        position: relative;
+        z-index: 1;
+    }
+
+    .product-card button,
+    .group button{
+        position: relative;
+        z-index: 20;
+    }
 
     .primary-btn{
         background: #7D5548;
@@ -280,102 +291,6 @@
 
 </form> --}}
 
-<!-- CATEGORY -->
-<section class="mb-8 md:mb-10">
-        <div class="flex items-center justify-between mb-6 md:mb-8">
-
-        <div>
-
-            <p class="text-[#8B5E3C] uppercase tracking-[3px] text-[11px] md:text-xs mb-2">
-                Catergory
-            </p>
-
-            <h2 class="hero-title text-2xl md:text-4xl font-bold">
-                Explore by Category
-            </h2>
-
-        </div>
-
-    </div>
-
-    <div class="flex gap-4 overflow-x-auto hide-scrollbar pb-2">
-
-        <!-- ALL -->
-        <a href="/"
-           class="shrink-0 rounded-2xl md:rounded-3xl px-5 md:px-6 py-4 shadow-sm flex items-center gap-3 transition
-           {{ request('category') == null
-                ? 'bg-[#7D5548] text-white'
-                : 'bg-white text-[#2B2B2B] hover:bg-[#7D5548] hover:text-white' }}">
-
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 fill="none"
-                 viewBox="0 0 24 24"
-                 stroke-width="1.7"
-                 stroke="currentColor"
-                 class="w-5 h-5">
-
-                <path stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M3.75 3.75h6v6h-6v-6Zm0 10.5h6v6h-6v-6Zm10.5-10.5h6v6h-6v-6Zm0 10.5h6v6h-6v-6Z" />
-
-            </svg>
-
-            <span class="font-medium text-sm md:text-base">
-                All
-            </span>
-
-        </a>
-
-        @foreach($categories as $category)
-
-        <a href="/?category={{ $category }}"
-           class="shrink-0 rounded-2xl md:rounded-3xl px-5 md:px-6 py-4 shadow-sm flex items-center gap-3 transition
-           {{ request('category') == $category
-                ? 'bg-[#8B5E3C] text-white'
-                : 'bg-white text-[#2B2B2B] hover:bg-[#8B5E3C] hover:text-white' }}">
-
-            <div class="text-lg">
-
-                @if($category == 'Sofa')
-
-                    🛋️
-
-                @elseif($category == 'Chair')
-
-                    🪑
-
-                @elseif($category == 'Table')
-
-                    🪵
-
-                @elseif($category == 'Bedroom')
-
-                    🛏️
-
-                @elseif($category == 'Decoration')
-
-                    🏺
-
-                @else
-
-                    📦
-
-                @endif
-
-            </div>
-
-            <span class="font-medium text-sm md:text-base whitespace-nowrap">
-                {{ $category }}
-            </span>
-
-        </a>
-
-        @endforeach
-
-    </div>
-
-</section>
-
 {{-- FEATURED COLLECTION --}}
 <section class="mb-8 md:mb-10 overflow-hidden">
 
@@ -471,9 +386,174 @@
 
 </section>
 
-<!-- PRODUCT -->
-<section id="products" class="mb-8 md:mb-10">
 
+<!-- CATEGORY -->
+<section class="mb-10 md:mb-14">
+
+    <!-- HEADER -->
+    <div class="flex items-center justify-between mb-6 md:mb-8">
+
+        <div>
+
+            <p class="text-[#8B5E3C] uppercase tracking-[3px] text-[11px] md:text-xs mb-2">
+                Category
+            </p>
+
+            <h2 class="hero-title text-2xl md:text-4xl font-bold text-[#2B2B2B]">
+                Explore by Category
+            </h2>
+
+        </div>
+
+    </div>
+
+    <!-- CATEGORY LIST -->
+    <div class="flex gap-3 md:gap-4 overflow-x-auto hide-scrollbar pb-2">
+
+        <!-- ALL -->
+        <a href="/"
+           class="shrink-0 rounded-2xl md:rounded-3xl px-5 md:px-6 py-3.5 md:py-4 shadow-sm border border-[#EFE7DC]
+           flex items-center gap-3 transition-all duration-300
+           {{ request('category') == null
+                ? 'bg-[#7D5548] text-white border-[#7D5548]'
+                : 'bg-white text-[#2B2B2B] hover:bg-[#7D5548] hover:text-white' }}">
+
+            <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
+
+                📦
+
+            </div>
+
+            <span class="font-medium text-sm md:text-base whitespace-nowrap">
+                All
+            </span>
+
+        </a>
+
+        @foreach($categories as $category)
+
+        <a href="/?category={{ $category->id }}"
+           class="shrink-0 rounded-2xl md:rounded-3xl px-5 md:px-6 py-3.5 md:py-4 shadow-sm border border-[#EFE7DC]
+           flex items-center gap-3 transition-all duration-300
+           {{ request('category') == $category->id
+                ? 'bg-[#8B5E3C] text-white border-[#8B5E3C]'
+                : 'bg-white text-[#2B2B2B] hover:bg-[#8B5E3C] hover:text-white' }}">
+
+            <!-- ICON -->
+            <div class="w-10 h-10 rounded-2xl bg-[#F6F1EA] flex items-center justify-center">
+
+                @if($category->name == 'Sofa')
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.7"
+                        stroke="currentColor"
+                        class="w-5 h-5">
+
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M4 12v5m0-5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2m-16 0v-1a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1m-16 5h16" />
+
+                    </svg>
+
+                @elseif($category->name == 'Chair')
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.7"
+                        stroke="currentColor"
+                        class="w-5 h-5">
+
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M7 10V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v4M7 10h10m-10 0v8m10-8v8m-10-4h10" />
+
+                    </svg>
+
+                @elseif($category->name == 'Table')
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.7"
+                        stroke="currentColor"
+                        class="w-5 h-5">
+
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M4 8h16M6 8v10m12-10v10" />
+
+                    </svg>
+
+                @elseif($category->name == 'Bed')
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.7"
+                        stroke="currentColor"
+                        class="w-5 h-5">
+
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M3 10h18v7H3v-7Zm3-3h3v3H6V7Z" />
+
+                    </svg>
+
+                @elseif($category->name == 'Lamp')
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.7"
+                        stroke="currentColor"
+                        class="w-5 h-5">
+
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M9 18h6m-5 0V9.5a3.5 3.5 0 1 1 4 0V18" />
+
+                    </svg>
+
+                @else
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.7"
+                        stroke="currentColor"
+                        class="w-5 h-5">
+
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5v-9Z" />
+
+                    </svg>
+
+                @endif
+
+            </div>
+
+            <!-- NAME -->
+            <span class="font-medium text-sm md:text-base whitespace-nowrap">
+                {{ $category->name }}
+            </span>
+
+        </a>
+
+        @endforeach
+
+    </div>
+
+</section>
+
+
+<!-- PRODUCT -->
+<section id="products" class="mb-10 md:mb-14">
+
+    <!-- HEADER -->
     <div class="flex items-center justify-between mb-6 md:mb-8">
 
         <div>
@@ -482,7 +562,7 @@
                 Products
             </p>
 
-            <h2 class="hero-title text-2xl md:text-4xl font-bold">
+            <h2 class="hero-title text-2xl md:text-4xl font-bold text-[#2B2B2B]">
                 Featured Products
             </h2>
 
@@ -490,50 +570,56 @@
 
     </div>
 
-    <!-- RESPONSIVE GRID -->
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-4 gap-4 md:gap-6">
+    <!-- PRODUCT GRID -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
 
         @foreach($products->take(8) as $product)
 
-        <div class="product-card">
+        <div class="bg-white rounded-[24px] md:rounded-[30px] overflow-hidden border border-[#EFE7DC] shadow-sm hover:shadow-xl transition-all duration-300 group">
 
             <!-- IMAGE -->
-            <div class="product-image">
+            <div class="relative overflow-hidden">
 
                 <img 
-                    src="{{ asset('products/' . $product->image) }}"
+                    src="{{ asset('produk/' . $product->image) }}"
                     alt="{{ $product->name }}"
-                    class="w-full h-[170px] md:h-[220px] object-cover"
+                    class="w-full h-[170px] md:h-[250px] object-cover group-hover:scale-105 transition duration-500"
                 >
+
+                <!-- CATEGORY BADGE -->
+                <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full">
+
+                    <p class="text-[10px] md:text-xs font-medium text-[#8B5E3C] uppercase tracking-[1px]">
+
+                        {{ $product->category->name ?? '-' }}
+
+                    </p>
+
+                </div>
 
             </div>
 
             <!-- CONTENT -->
             <div class="p-4 md:p-5">
 
-                <!-- CATEGORY -->
-                <p class="text-[11px] md:text-xs text-[#C97B63] mb-2 uppercase tracking-[2px] truncate">
-                    {{ $product->category }}
-                </p>
-
                 <!-- NAME -->
-                <h3 class="text-base md:text-lg font-semibold mb-2 line-clamp-1">
+                <h3 class="text-sm md:text-lg font-semibold mb-2 line-clamp-1 text-[#2B2B2B]">
                     {{ $product->name }}
                 </h3>
 
-                <!-- DESC -->
-                <p class="text-xs md:text-sm text-gray-500 mb-4 line-clamp-2">
+                <!-- DESCRIPTION -->
+                <p class="text-[11px] md:text-sm text-gray-500 mb-4 line-clamp-2 leading-relaxed">
                     {{ $product->description }}
                 </p>
 
                 <!-- PRICE -->
                 <div class="mb-4">
 
-                    <p class="text-lg md:text-xl font-bold text-[#8B5E3C]">
+                    <p class="text-base md:text-2xl font-bold text-[#8B5E3C]">
                         Rp {{ number_format($product->price) }}
                     </p>
 
-                    <p class="text-xs md:text-sm text-gray-500">
+                    <p class="text-[11px] md:text-sm text-gray-400 mt-1">
                         Stock: {{ $product->stock }}
                     </p>
 
@@ -542,46 +628,38 @@
                 <!-- BUTTON -->
                 <div class="flex flex-col gap-2">
 
+                    <!-- DETAIL -->
                     <a href="/product/{{ $product->id }}"
-                       class="w-full border border-gray-300 py-2.5 rounded-xl text-center text-sm hover:bg-gray-100 transition">
+                       class="w-full border border-[#E5D7C7] py-2.5 md:py-3 rounded-xl md:rounded-2xl text-center text-xs md:text-sm font-medium hover:bg-[#F8F3EC] transition">
 
                         Detail
 
                     </a>
 
-                    <form action="/cart/add"
-                          method="POST">
+                    <!-- ADD CART -->
+                    <button
+                        onclick="addToCart({{ $product->id }}, this)"
+                        class="w-full bg-[#8B5E3C] hover:bg-[#6F472D] text-white py-2.5 md:py-3 rounded-xl md:rounded-2xl text-xs md:text-sm font-medium transition-all duration-300 active:scale-95 add-cart-btn">
 
-                        @csrf
+                        Add to Cart
 
-                        <input type="hidden"
-                               name="product_id"
-                               value="{{ $product->id }}">
-
-                        <button type="submit"
-                                class="primary-btn add-to-cart-btn w-full py-2.5 rounded-xl text-sm font-medium transition-all duration-300 active:scale-95">
-
-                            Add to Cart
-
-                        </button>
-
-                    </form>
+                    </button>
 
                 </div>
 
             </div>
 
-                 </div>
+        </div>
 
         @endforeach
 
     </div>
 
-    <!-- BUTTON LIHAT SEMUA -->
-    <div class="flex justify-center mt-8 md:mt-10">
+    <!-- BUTTON -->
+    <div class="flex justify-center mt-8 md:mt-12">
 
         <a href="/products"
-        class="primary-btn px-6 md:px-8 py-3 rounded-full text-sm md:text-base font-medium shadow-sm">
+           class="bg-[#8B5E3C] hover:bg-[#6F472D] text-white px-7 md:px-9 py-3 md:py-4 rounded-full text-sm md:text-base font-medium shadow-sm transition-all duration-300">
 
             Lihat Semua Produk
 
@@ -824,86 +902,116 @@
 
 </footer>
 
+<!-- TOAST -->
+<div id="toast"
+     class="fixed top-5 right-5 mt-20 translate-x-[120%] transition-all duration-500 z-[9999]">
+
+    <div class="bg-[#2B2B2B] text-white px-5 py-4 rounded-2xl shadow-2xl flex items-center gap-3">
+
+        <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-sm">
+            ✓
+        </div>
+
+        <div>
+            <p class="font-medium text-sm">
+                Added to Cart
+            </p>
+
+            <p class="text-xs text-gray-300">
+                Product successfully added
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
 <script>
 
-document.querySelectorAll('form[action="/cart/add"]').forEach(form => {
+async function addToCart(productId, button)
+{
+    let originalText = button.innerHTML;
 
-    form.addEventListener('submit', async function(e){
+    try {
 
-        e.preventDefault();
-
-        const button = form.querySelector('.add-to-cart-btn');
-
-        // loading animation
         button.disabled = true;
+        button.innerHTML = 'Adding...';
 
-        button.innerHTML = `
-            <span class="flex items-center justify-center gap-2">
-
-                <svg class="w-4 h-4 animate-bounce"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor">
-
-                    <path stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M4 4h1.5L7 14h10l1.5-7H6" />
-
-                </svg>
-
-                Added ✓
-
-            </span>
-        `;
-
-        button.classList.add('scale-95');
-
-        // kirim data tanpa reload
-        await fetch('/cart/add', {
+        const response = await fetch('/cart/add', {
 
             method: 'POST',
 
-            body: new FormData(form),
-
             headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                'Accept': 'application/json'
-            }
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document
+                    .querySelector('meta[name="csrf-token"]')
+                    .getAttribute('content')
+            },
+
+            body: JSON.stringify({
+                product_id: productId
+            })
 
         });
 
-        // update badge cart
-        let badge = document.querySelector('.cart-badge');
+        // kalau belum login
+        if(response.redirected){
 
-        if(badge){
+            window.location.href = response.url;
+            return;
+        }
 
-            let current = parseInt(badge.innerText);
+        const data = await response.json();
 
-            badge.innerText = current + 1;
+        if(data.success){
 
-            badge.classList.add('animate-bounce');
+            button.innerHTML = '✓ Added';
+            button.classList.add('bg-green-600');
+
+            const toast = document.getElementById('toast');
+
+            toast.classList.remove('translate-x-[120%]');
 
             setTimeout(() => {
-                badge.classList.remove('animate-bounce');
+
+                toast.classList.add('translate-x-[120%]');
+
+            }, 2500);
+
+        }
+        // UPDATE CART BADGE
+        const cartBadge = document.getElementById('cart-count');
+
+        if(cartBadge){
+
+            cartBadge.innerText = data.cart_count;
+
+            cartBadge.classList.add('animate-bounce');
+
+            setTimeout(() => {
+
+                cartBadge.classList.remove('animate-bounce');
+
             }, 500);
         }
 
-        // kembali normal
-        setTimeout(() => {
+    } catch (error) {
 
-            button.innerHTML = 'Add to Cart';
+        console.log(error);
 
-            button.disabled = false;
+        button.innerHTML = 'Failed';
 
-            button.classList.remove('scale-95');
+    }
 
-        }, 1200);
+    setTimeout(() => {
 
-    });
+        button.disabled = false;
+        button.innerHTML = originalText;
+        button.classList.remove('bg-green-600');
 
-});
+    }, 1800);
+}
 
 </script>
 @endsection

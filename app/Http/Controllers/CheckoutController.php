@@ -2,68 +2,74 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Models\Product;
+use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
 {
-    public function checkout()
+    /**
+     * Checkout Process
+     */
+    public function store(Request $request)
     {
-        $cart = session('cart', []);
+        // AMBIL CART USER
+        $carts = Cart::with('product')
+                    ->where('user_id', auth()->id())
+                    ->get();
 
-        // ❗ kalau cart kosong
-        if (empty($cart)) {
-            return back()->with('error', 'Cart kosong');
+        // CEK KOSONG
+        if($carts->count() < 1){
+
+            return redirect('/cart')
+                ->with('error', 'Cart masih kosong');
+
         }
 
-        // 🔥 VALIDASI STOK DULU
-        foreach ($cart as $item) {
-            $product = Product::find($item['id']);
-
-            if (!$product) {
-                return back()->with('error', 'Produk tidak ditemukan');
-            }
-
-            if ($product->stock < $item['qty']) {
-                return back()->with('error', 'Stok tidak cukup untuk ' . $product->name);
-            }
-        }
-
-        // 💰 HITUNG TOTAL
+        // HITUNG TOTAL
         $total = 0;
-        foreach ($cart as $item) {
-            $total += $item['price'] * $item['qty'];
+
+        foreach($carts as $cart){
+
+            $total += $cart->product->price * $cart->quantity;
+
         }
 
-        // 🧾 BUAT ORDER
+        // CREATE ORDER
         $order = Order::create([
+
             'user_id' => auth()->id(),
+
             'total_price' => $total,
-            'status' => 'pending'
+
+            'payment_status' => 'pending'
+
         ]);
 
-        // 📦 SIMPAN ORDER ITEM + KURANGI STOK
-        foreach ($cart as $item) {
+        // CREATE ORDER ITEMS
+        foreach($carts as $cart){
 
             OrderItem::create([
+
                 'order_id' => $order->id,
-                'product_id' => $item['id'],
-                'quantity' => $item['qty'],
-                'price' => $item['price']
+
+                'product_id' => $cart->product_id,
+
+                'quantity' => $cart->quantity,
+
+                'price' => $cart->product->price
+
             ]);
 
-            // 🔥 KURANGI STOK
-            $product = Product::find($item['id']);
-            $product->stock -= $item['qty'];
-            $product->save();
         }
 
-        // 🧹 HAPUS CART
-        session()->forget('cart');
+        // HAPUS CART
+        Cart::where('user_id', auth()->id())->delete();
 
-        // ➡️ KE HALAMAN PAYMENT
-        return redirect('/payment/' . $order->id);
+        // REDIRECT
+        return redirect('/cart')
+            ->with('success', 'Checkout berhasil! Silakan lakukan pembayaran dan tunggu konfirmasi admin.');
+
     }
 }
