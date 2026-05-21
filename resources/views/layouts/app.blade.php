@@ -98,7 +98,7 @@
                     <div>
 
                         <h1 class="hero-title text-xl sm:text-2xl font-bold leading-none tracking-wide">
-                            Toko Alumunium
+                            Toko Alumunium COBA
                         </h1>
 
                         <p class="text-[10px] uppercase tracking-[3px] text-[#8B5E3C] mt-1">
