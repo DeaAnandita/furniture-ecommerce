@@ -18,7 +18,7 @@
 
 @endif
 
-<section class="max-w-7xl mx-auto pb-[140px] lg:pb-10">
+<section class="max-w-7xl mx-auto pb-32 lg:pb-10">
 
     <!-- TITLE -->
     <div class="mb-8 md:mb-10">
@@ -61,119 +61,126 @@
 
     @else
 
-    <div class="grid lg:grid-cols-3 gap-6">
+    <form action="{{ route('checkout.store') }}"
+          method="POST">
 
-        <!-- LEFT -->
-        <div class="lg:col-span-2 space-y-4">
+        @csrf
 
-            @foreach($carts as $cart)
+        <div class="grid lg:grid-cols-3 gap-6">
 
-            @php
-                $subtotal = $cart->product->price * $cart->quantity;
-            @endphp
+            <!-- LEFT -->
+            <div class="lg:col-span-2 space-y-4">
 
-            <div class="bg-white border border-[#EFE7DC] rounded-[26px] overflow-hidden shadow-sm hover:shadow-md transition">
+                @foreach($carts as $cart)
 
-                <div class="flex items-center gap-3 p-3 md:p-5">
+                @php
+                    $subtotal = $cart->product->price * $cart->quantity;
+                @endphp
 
-                    <!-- CHECKBOX -->
-                    <div class="shrink-0">
+                <div class="bg-white border border-[#EFE7DC] rounded-[26px] overflow-hidden shadow-sm hover:shadow-md transition">
 
-                        <input type="checkbox"
-                            name="selected_items[]"
-                            value="{{ $cart->id }}"
-                            checked
-                            data-price="{{ $subtotal }}"
-                            data-qty="{{ $cart->quantity }}"
-                            class="cart-checkbox w-5 h-5 rounded border-[#D6C5B4] text-[#8B5E3C] focus:ring-[#8B5E3C]">
+                    <div class="flex items-center gap-3 p-3 md:p-5">
 
-                    </div>
+                        <!-- CHECKBOX -->
+                        <div class="shrink-0">
 
-                    <!-- IMAGE -->
-                    <div class="w-24 h-24 md:w-32 md:h-32 shrink-0">
+                            <input type="checkbox"
+                                   name="selected_items[]"
+                                   value="{{ $cart->id }}"
+                                   checked
+                                   data-price="{{ $subtotal }}"
+                                   data-qty="{{ $cart->quantity }}"
+                                   class="cart-checkbox w-5 h-5 rounded border-[#D6C5B4] text-[#8B5E3C] focus:ring-[#8B5E3C]">
 
-                        <img src="{{ asset('produk/' . $cart->product->image) }}"
-                            class="w-full h-full object-cover rounded-2xl">
+                        </div>
 
-                    </div>
+                        <!-- IMAGE -->
+                        <div class="w-24 h-24 md:w-32 md:h-32 shrink-0">
 
-                    <!-- CONTENT -->
-                    <div class="flex-1 min-w-0">
+                            <img src="{{ asset('produk/' . $cart->product->image) }}"
+                                 class="w-full h-full object-cover rounded-2xl">
 
-                        <p class="uppercase tracking-[2px] text-[10px] text-[#B08968] mb-1">
+                        </div>
 
-                            {{ $cart->product->category?->name }}
+                        <!-- CONTENT -->
+                        <div class="flex-1 min-w-0">
 
-                        </p>
+                            <p class="uppercase tracking-[2px] text-[10px] text-[#B08968] mb-1">
 
-                        <h2 class="text-sm md:text-xl font-semibold text-[#2B2B2B] line-clamp-1 mb-1">
+                                {{ $cart->product->category?->name }}
 
-                            {{ $cart->product->name }}
+                            </p>
 
-                        </h2>
+                            <h2 class="text-sm md:text-xl font-semibold text-[#2B2B2B] line-clamp-1 mb-1">
 
-                        <p class="hidden md:block text-sm text-gray-500 line-clamp-2 mb-4">
+                                {{ $cart->product->name }}
 
-                            {{ $cart->product->description }}
+                            </h2>
 
-                        </p>
+                            <p class="hidden md:block text-sm text-gray-500 line-clamp-2 mb-4">
 
-                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                                {{ $cart->product->description }}
 
-                            <!-- PRICE -->
-                            <div>
+                            </p>
 
-                                <h3 class="text-base md:text-xl font-bold text-[#7D5548]">
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
 
-                                    Rp {{ number_format($cart->product->price) }}
+                                <!-- PRICE -->
+                                <div>
 
-                                </h3>
+                                    <h3 class="text-base md:text-xl font-bold text-[#7D5548]">
 
-                                <p class="text-xs md:text-sm text-gray-500 mt-1">
+                                        Rp {{ number_format($cart->product->price) }}
 
-                                    Subtotal :
-                                    Rp {{ number_format($subtotal) }}
+                                    </h3>
 
-                                </p>
+                                    <p class="text-xs md:text-sm text-gray-500 mt-1">
 
-                            </div>
+                                        Subtotal :
+                                        Rp {{ number_format($subtotal) }}
 
-                            <!-- QTY -->
-                            <div class="flex items-center gap-2">
-
-                                <form action="/cart/minus/{{ $cart->id }}"
-                                    method="POST">
-
-                                    @csrf
-
-                                    <button type="submit"
-                                            class="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-[#F5EFE6] hover:bg-[#E7D8C7] transition text-base">
-
-                                        −
-
-                                    </button>
-
-                                </form>
-
-                                <div class="w-8 text-center font-semibold">
-
-                                    {{ $cart->quantity }}
+                                    </p>
 
                                 </div>
 
-                                <form action="/cart/plus/{{ $cart->id }}"
-                                    method="POST">
+                                <!-- QTY -->
+                                <div class="flex items-center gap-2">
 
-                                    @csrf
+                                    <form action="/cart/minus/{{ $cart->id }}"
+                                          method="POST">
 
-                                    <button type="submit"
-                                            class="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-[#F5EFE6] hover:bg-[#E7D8C7] transition text-base">
+                                        @csrf
 
-                                        +
+                                        <button type="submit"
+                                                class="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-[#F5EFE6] hover:bg-[#E7D8C7] transition text-base">
 
-                                    </button>
+                                            −
 
-                                </form>
+                                        </button>
+
+                                    </form>
+
+                                    <div class="w-8 text-center font-semibold">
+
+                                        {{ $cart->quantity }}
+
+                                    </div>
+
+                                    <form action="/cart/plus/{{ $cart->id }}"
+                                          method="POST">
+
+                                        @csrf
+
+                                        <button type="submit"
+                                                class="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-[#F5EFE6] hover:bg-[#E7D8C7] transition text-base">
+
+                                            +
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
 
                             </div>
 
@@ -183,72 +190,61 @@
 
                 </div>
 
+                @endforeach
+
             </div>
 
-            @endforeach
+            <!-- RIGHT -->
+            <div>
 
-        </div>
+                <div class="hidden lg:block bg-white border border-[#E8DED1] rounded-[30px] p-6 sticky top-28">
 
-        <!-- RIGHT -->
-        <div>
+                    <h2 class="text-2xl font-semibold mb-6">
+                        Order Summary
+                    </h2>
 
-            <div class="hidden lg:block bg-white border border-[#E8DED1] rounded-[30px] p-6 sticky top-28">
+                    <div class="space-y-4 mb-6">
 
-                <h2 class="text-2xl font-semibold mb-6">
-                    Order Summary
-                </h2>
+                        <div class="flex justify-between text-sm">
 
-                <div class="space-y-4 mb-6">
+                            <span class="text-gray-500">
+                                Total Item
+                            </span>
 
-                    <div class="flex justify-between text-sm">
+                            <span id="desktopTotalItems">
+                                0
+                            </span>
 
-                        <span class="text-gray-500">
-                            Total Item
-                        </span>
+                        </div>
 
-                        <span id="desktopTotalItems">
-                            0
-                        </span>
+                        <div class="flex justify-between text-sm">
 
-                    </div>
+                            <span class="text-gray-500">
+                                Shipping
+                            </span>
 
-                    <div class="flex justify-between text-sm">
+                            <span>
+                                Free
+                            </span>
 
-                        <span class="text-gray-500">
-                            Shipping
-                        </span>
+                        </div>
 
-                        <span>
-                            Free
-                        </span>
+                        <div class="border-t pt-4 flex justify-between text-lg font-bold">
 
-                    </div>
+                            <span>
+                                Total
+                            </span>
 
-                    <div class="border-t pt-4 flex justify-between text-lg font-bold">
+                            <span class="text-[#8B5E3C]"
+                                  id="desktopGrandTotal">
 
-                        <span>
-                            Total
-                        </span>
+                                Rp 0
 
-                        <span class="text-[#8B5E3C]"
-                            id="desktopGrandTotal">
+                            </span>
 
-                            Rp 0
-
-                        </span>
+                        </div>
 
                     </div>
-
-                </div>
-
-                <!-- FORM CHECKOUT -->
-                <form id="checkoutForm"
-                    action="{{ route('checkout.store') }}"
-                    method="POST">
-
-                    @csrf
-
-                    <div id="selectedItemsContainer"></div>
 
                     <button type="submit"
                             class="w-full bg-[#8B5E3C] hover:bg-[#6F472D] transition text-white py-4 rounded-full font-medium">
@@ -257,60 +253,59 @@
 
                     </button>
 
-                </form>
+                </div>
 
             </div>
 
         </div>
 
-    </div>
+        <!-- MOBILE STICKY -->
+        <div class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[#E8DED1] px-5 py-4 shadow-[0_-5px_20px_rgba(0,0,0,0.05)]">
 
-    <!-- MOBILE STICKY -->
-    <div class="lg:hidden fixed bottom-0 left-0 right-0 z-[9999] bg-white border-t border-[#E8DED1] px-5 py-4 shadow-[0_-5px_20px_rgba(0,0,0,0.05)]">
+            <div class="flex items-center justify-between mb-3">
 
-        <div class="flex items-center justify-between mb-3">
+                <div>
 
-            <div>
+                    <p class="text-xs text-gray-500">
+                        Total
+                    </p>
 
-                <p class="text-xs text-gray-500">
-                    Total
-                </p>
+                    <h3 class="text-xl font-bold text-[#8B5E3C]"
+                        id="mobileGrandTotal">
 
-                <h3 class="text-xl font-bold text-[#8B5E3C]"
-                    id="mobileGrandTotal">
+                        Rp 0
 
-                    Rp 0
+                    </h3>
 
-                </h3>
+                </div>
+
+                <div class="text-right">
+
+                    <p class="text-xs text-gray-500">
+                        Items
+                    </p>
+
+                    <p class="font-semibold"
+                       id="mobileTotalItems">
+
+                        0
+
+                    </p>
+
+                </div>
 
             </div>
 
-            <div class="text-right">
+            <button type="submit"
+                    class="w-full bg-[#8B5E3C] hover:bg-[#6F472D] transition text-white py-3 rounded-2xl font-medium">
 
-                <p class="text-xs text-gray-500">
-                    Items
-                </p>
+                Checkout Now
 
-                <p class="font-semibold"
-                id="mobileTotalItems">
-
-                    0
-
-                </p>
-
-            </div>
+            </button>
 
         </div>
 
-        <button type="submit"
-                form="checkoutForm"
-                class="w-full bg-[#8B5E3C] hover:bg-[#6F472D] transition text-white py-3 rounded-2xl font-medium">
-
-            Checkout Now
-
-        </button>
-
-    </div>
+    </form>
 
     @endif
 
@@ -327,14 +322,10 @@
     const mobileTotal = document.getElementById('mobileGrandTotal');
     const mobileItems = document.getElementById('mobileTotalItems');
 
-    const selectedItemsContainer = document.getElementById('selectedItemsContainer');
-
     function updateSummary() {
 
         let total = 0;
         let items = 0;
-
-        selectedItemsContainer.innerHTML = '';
 
         checkboxes.forEach((checkbox) => {
 
@@ -342,12 +333,6 @@
 
                 total += parseInt(checkbox.dataset.price);
                 items += parseInt(checkbox.dataset.qty);
-
-                selectedItemsContainer.innerHTML += `
-                    <input type="hidden"
-                           name="selected_items[]"
-                           value="${checkbox.value}">
-                `;
 
             }
 

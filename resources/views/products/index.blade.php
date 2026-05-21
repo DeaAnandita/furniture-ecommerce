@@ -637,22 +637,13 @@
                     </a>
 
                     <!-- ADD CART -->
-                    @auth
-
                     <button
                         onclick="addToCart({{ $product->id }}, this)"
                         class="w-full bg-[#8B5E3C] hover:bg-[#6F472D] text-white py-2.5 md:py-3 rounded-xl md:rounded-2xl text-xs md:text-sm font-medium transition-all duration-300 active:scale-95 add-cart-btn">
+
                         Add to Cart
+
                     </button>
-
-                    @else
-
-                    <a href="{{ route('login') }}"
-                        class="block w-full text-center bg-[#8B5E3C] hover:bg-[#6F472D] text-white py-2.5 md:py-3 rounded-xl md:rounded-2xl text-xs md:text-sm font-medium transition-all duration-300">
-                        Add to Cart
-                    </a>
-
-                    @endauth
 
                 </div>
 
