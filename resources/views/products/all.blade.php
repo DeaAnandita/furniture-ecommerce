@@ -137,6 +137,8 @@
 
     </a>
 
+    @auth
+
     <button
         onclick="addToCart({{ $product->id }}, this)"
         class="w-full bg-[#7D5548] hover:bg-[#68453A] transition text-white py-2.5 rounded-2xl text-sm font-medium add-cart-btn">
@@ -144,6 +146,17 @@
         Add to Cart
 
     </button>
+
+    @else
+
+    <a href="{{ route('login') }}"
+    class="block w-full text-center bg-[#7D5548] hover:bg-[#68453A] transition text-white py-2.5 rounded-2xl text-sm font-medium">
+
+        Add to Cart
+
+    </a>
+
+    @endauth
 
 </div>
 
