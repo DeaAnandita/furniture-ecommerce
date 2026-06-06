@@ -9,7 +9,7 @@
     <meta name="csrf-token"
           content="{{ csrf_token() }}">
 
-    <title>Toko Alumunium</title>
+    <title>Budi Alumunium</title>
 
     <link rel="stylesheet" href="/build/assets/app-BRR_Adp_.css">
     <script type="module" src="/build/assets/app-DsIK1Lmc.js"></script>
@@ -98,8 +98,8 @@
 
                     <div>
 
-                        <h1 class="hero-title text-xl sm:text-2xl font-bold leading-none tracking-wide">
-                            Toko Alumunium
+                        <h1 class="hero-title text-xl sm:text-xl font-bold leading-none tracking-wide">
+                            Budi Alumunium
                         </h1>
 
                         <p class="text-[10px] uppercase tracking-[3px] text-[#8B5E3C] mt-1">

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Toko Furniture</title>
+    <title>Budi Alumunium</title>
 
     <link rel="stylesheet" href="/build/assets/app-BRR_Adp_.css">
     <script type="module" src="/build/assets/app-DsIK1Lmc.js"></script>
@@ -82,13 +82,12 @@
                 <div class="mb-8 text-center">
 
                     {{-- <h2 class="text-3xl font-bold text-[#2B2B2B]">
-                        Toko Furniture
+                        Budi Alumunium
                     </h2>
 
                     <p class="text-gray-500 mt-2">
                         Furniture modern & aesthetic
                     </p> --}}
-
                 </div>
 
                 {{ $slot }}

@@ -98,20 +98,20 @@
         <div class="max-w-2xl px-5 md:px-12 text-white">
 
             <p class="uppercase tracking-[3px] text-xs md:text-sm mb-3 md:mb-4">
-                Modern Minimalist Furniture
+                Furniture Modern
             </p>
 
             <h1 class="hero-title text-3xl md:text-6xl font-bold leading-tight mb-4 md:mb-6">
-                Make Your Home More Comfortable
+                Ruang Nyaman, Hidup Lebih Bermakna
             </h1>
 
             <p class="text-sm md:text-lg text-gray-200 mb-6 md:mb-8">
-                Discover aesthetic furniture collections inspired by Scandinavian and Japandi interiors.
+                Koleksi furniture pilihan untuk melengkapi setiap sudut rumah Anda.
             </p>
 
             <a href="#products"
                class="primary-btn px-6 md:px-8 py-3 md:py-4 rounded-full inline-block text-sm md:text-base font-medium">
-                Shop Now
+                Lihat Koleksi
             </a>
 
         </div>
@@ -692,7 +692,7 @@
             Follow Our Instagram
         </h2>
 
-        <a href="https://instagram.com/tokofurniture"
+        <a href="https://instagram.com/budialumunium_122"
            target="_blank"
            class="inline-flex items-center gap-2 text-[#8B5E3C] hover:text-[#6F472D] transition font-medium text-sm md:text-base">
 
@@ -705,7 +705,7 @@
 
             </svg>
 
-            @tokofurniture
+            @budialumunium_122
 
         </a>
 
@@ -860,7 +860,7 @@
 
             <div>
                 <h3 class="text-2xl font-semibold mb-4 ml-4">
-                    Toko Furniture
+                    Budi Alumunium
                 </h3>
 
                 <p class="text-gray-200 text-sm ml-4">
@@ -874,9 +874,9 @@
                 </h4>
 
                 <div class="space-y-2 text-gray-200 text-sm ml-4">
-                    <p>Email: tokofurniture@gmail.com</p>
-                    <p>WhatsApp: 0812-3456-7890</p>
-                    <p>Jepara, Indonesia</p>
+                    <p>Email: hilmybudi11@gmail.com</p>
+                    <p>WhatsApp: 087764729505</p>
+                    <p>Pati, Indonesia</p>
                 </div>
             </div>
 
@@ -895,7 +895,7 @@
         </div>
 
         <div class="border-t border-white/10 mt-10 pt-6 text-center text-sm text-white-500">
-            © 2026 Toko Furniture. All rights reserved.
+            © 2026 Budi Alumunium. All rights reserved.
         </div>
 
     </div>

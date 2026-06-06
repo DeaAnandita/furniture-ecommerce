@@ -110,7 +110,7 @@
                     </h1>
 
                     <p class="text-[11px] uppercase tracking-[3px] text-white/60 mt-2">
-                        Toko Furniture
+                        Budi Alumunium
                     </p>
 
                 </div>

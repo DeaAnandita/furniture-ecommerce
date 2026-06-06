@@ -46,113 +46,113 @@ class ProductSeeder extends Seeder
         $contemporary = Style::where('name', 'Contemporary')->first();
 
         Product::create([
-            'name' => 'Minimalist Wooden Chair',
-            'description' => 'Elegant wooden chair suitable for modern interiors.',
-            'price' => 850000,
-            'stock' => 12,
-            'image' => 'chair.jpeg',
-            'category_id' => $chair?->id,
-            'material_id' => $wood?->id,
-            'style_id' => $japandi?->id,
-        ]);
-
-        Product::create([
-            'name' => 'Modern Coffee Table',
-            'description' => 'Scandinavian coffee table with elegant design.',
-            'price' => 1500000,
-            'stock' => 8,
-            'image' => 'table.jpg',
-            'category_id' => $table?->id,
-            'material_id' => $wood?->id,
-            'style_id' => $scandinavian?->id,
-        ]);
-
-        Product::create([
-            'name' => 'Luxury Sofa Cream',
-            'description' => 'Comfortable luxury sofa with soft fabric.',
-            'price' => 4200000,
-            'stock' => 5,
-            'image' => 'sofa.jpg',
-            'category_id' => $sofa?->id,
-            'material_id' => $fabric?->id,
-            'style_id' => $luxury?->id,
-        ]);
-
-        Product::create([
-            'name' => 'Wooden Bed Frame',
-            'description' => 'Minimalist bed frame with natural wood texture.',
-            'price' => 3500000,
-            'stock' => 4,
-            'image' => 'bed.jpg',
-            'category_id' => $bed?->id,
-            'material_id' => $wood?->id,
-            'style_id' => $minimalist?->id,
-        ]);
-
-        Product::create([
-            'name' => 'Decorative Standing Lamp',
-            'description' => 'Modern standing lamp for elegant room decoration.',
-            'price' => 650000,
-            'stock' => 15,
-            'image' => 'lamp.jpg',
-            'category_id' => $lamp?->id,
-            'material_id' => $metal?->id,
-            'style_id' => $modern?->id,
-        ]);
-
-        Product::create([
-            'name' => 'Industrial Dining Table',
-            'description' => 'Industrial dining set with steel frame.',
-            'price' => 5200000,
-            'stock' => 3,
-            'image' => 'diningtable.jpg',
-            'category_id' => $dining?->id,
-            'material_id' => $steel?->id,
-            'style_id' => $industrial?->id,
-        ]);
-
-        Product::create([
-            'name' => 'Elegant Lounge Chair',
-            'description' => 'Comfortable lounge chair with elegant style.',
-            'price' => 1750000,
-            'stock' => 7,
-            'image' => 'loungechair.jpg',
-            'category_id' => $chair?->id,
-            'material_id' => $leather?->id,
-            'style_id' => $luxury?->id,
-        ]);
-
-        Product::create([
-            'name' => 'Minimalist TV Cabinet',
-            'description' => 'TV cabinet with modern minimalist design.',
-            'price' => 2400000,
-            'stock' => 6,
-            'image' => 'cabinet.jpg',
+            'name' => 'Lemari Pakaian SIRI 3 Pintu',
+            'description' => 'Lemari pakaian modern 3 pintu dengan ruang penyimpanan luas.',
+            'price' => 5799000,
+            'stock' => 10,
+            'image' => 'lemari1.jpg',
             'category_id' => $cabinet?->id,
             'material_id' => $wood?->id,
             'style_id' => $minimalist?->id,
         ]);
 
         Product::create([
-            'name' => 'Modern Workspace Desk',
-            'description' => 'Elegant desk for productive workspace.',
-            'price' => 2800000,
-            'stock' => 9,
-            'image' => 'desk.jpg',
-            'category_id' => $table?->id,
+            'name' => 'Lemari Pakaian LECCO 2 Pintu',
+            'description' => 'Lemari pakaian 2 pintu dengan desain minimalis warna putih.',
+            'price' => 3899000,
+            'stock' => 8,
+            'image' => 'lemari2.jpg',
+            'category_id' => $cabinet?->id,
+            'material_id' => $metal?->id,
+            'style_id' => $modern?->id,
+        ]);
+
+        Product::create([
+            'name' => 'Lemari Pakaian KATO 3 Pintu',
+            'description' => 'Lemari pakaian elegan dengan rak dan gantungan pakaian.',
+            'price' => 4999000,
+            'stock' => 12,
+            'image' => 'lemari3.jpg',
+            'category_id' => $cabinet?->id,
+            'material_id' => $wood?->id,
+            'style_id' => $japandi?->id,
+        ]);
+
+        Product::create([
+            'name' => 'Heim Studio REKA Lemari Pakaian 2 Pintu',
+            'description' => 'Lemari pakaian pintu geser modern yang hemat ruang.',
+            'price' => 2899000,
+            'stock' => 15,
+            'image' => 'lemari4.jpg',
+            'category_id' => $cabinet?->id,
             'material_id' => $wood?->id,
             'style_id' => $modern?->id,
         ]);
 
         Product::create([
-            'name' => 'Luxury King Bed',
-            'description' => 'Premium king bed with classy luxury design.',
-            'price' => 6800000,
-            'stock' => 2,
-            'image' => 'kingbed.jpg',
-            'category_id' => $bed?->id,
-            'material_id' => $fabric?->id,
+            'name' => 'Lemari Pakaian KANOU 2 Pintu',
+            'description' => 'Lemari pakaian minimalis dengan kapasitas penyimpanan besar.',
+            'price' => 4899000,
+            'stock' => 7,
+            'image' => 'lemari5.jpg',
+            'category_id' => $cabinet?->id,
+            'material_id' => $wood?->id,
+            'style_id' => $minimalist?->id,
+        ]);
+
+        Product::create([
+            'name' => 'Lemari Pakaian YASHU 3 Pintu',
+            'description' => 'Lemari pakaian modern dengan kombinasi rak multifungsi.',
+            'price' => 4199000,
+            'stock' => 11,
+            'image' => 'lemari6.jpg',
+            'category_id' => $cabinet?->id,
+            'material_id' => $wood?->id,
+            'style_id' => $contemporary?->id,
+        ]);
+
+        Product::create([
+            'name' => 'Heim Studio RUNA Lemari Pakaian 3 Pintu',
+            'description' => 'Lemari pakaian modern dengan desain elegan dan penyimpanan optimal.',
+            'price' => 2849000,
+            'stock' => 9,
+            'image' => 'lemari7.jpg',
+            'category_id' => $cabinet?->id,
+            'material_id' => $wood?->id,
+            'style_id' => $modern?->id,
+        ]);
+
+        Product::create([
+            'name' => 'Lemari Pakaian MOKU 2 Pintu',
+            'description' => 'Lemari pakaian warna coklat dengan tampilan natural.',
+            'price' => 2449000,
+            'stock' => 14,
+            'image' => 'lemari8.jpg',
+            'category_id' => $cabinet?->id,
+            'material_id' => $wood?->id,
+            'style_id' => $scandinavian?->id,
+        ]);
+
+        Product::create([
+            'name' => 'Lemari Pakaian KEIGO Sliding Cermin',
+            'description' => 'Lemari pakaian premium dengan pintu sliding dan cermin.',
+            'price' => 6299000,
+            'stock' => 5,
+            'image' => 'lemari9.jpg',
+            'category_id' => $cabinet?->id,
+            'material_id' => $glass?->id,
             'style_id' => $luxury?->id,
+        ]);
+
+        Product::create([
+            'name' => 'Lemari Pakaian RUNA 3 Pintu',
+            'description' => 'Lemari pakaian modern dengan penyimpanan maksimal.',
+            'price' => 2849000,
+            'stock' => 13,
+            'image' => 'lemari10.jpg',
+            'category_id' => $cabinet?->id,
+            'material_id' => $wood?->id,
+            'style_id' => $minimalist?->id,
         ]);
     }
 }
