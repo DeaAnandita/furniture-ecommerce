@@ -15,8 +15,7 @@
         Admin Panel
     </title>
 
-    <link rel="stylesheet" href="/build/assets/app-BRR_Adp_.css">
-    <script type="module" src="/build/assets/app-DsIK1Lmc.js"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- ALPINE -->
     <script defer
