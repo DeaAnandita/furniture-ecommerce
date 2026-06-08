@@ -21,7 +21,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\DashboardController;
-
+use App\Http\Controllers\Admin\ReportController;
 
 
 /*
@@ -54,12 +54,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'index']);
 
     // Checkout
-    Route::post('/checkout', [CheckoutController::class, 'store']);
     Route::post('/checkout', [CheckoutController::class, 'store'])
     ->name('checkout.store');
 
     // Payment
-    Route::get('/payment/{id}', [PaymentController::class, 'index']);
+    Route::get('/payment/{id}', [PaymentController::class, 'index'])
+        ->name('payment.index');
+
+    Route::post('/payment/{id}', [PaymentController::class, 'pay'])
+        ->name('payment.pay');
 
     Route::post('/cart/plus/{id}', [CartController::class, 'plus']);
     Route::post('/cart/minus/{id}', [CartController::class, 'minus']);
@@ -105,6 +108,10 @@ Route::middleware(['auth', 'admin'])
     Route::put('/products/{id}', [AdminProductController::class, 'update']);
     Route::delete('/products/{id}', [AdminProductController::class, 'destroy']);
 
+    Route::get('/reports', [ReportController::class, 'index']);
+    Route::get('/reports/pdf',
+        [ReportController::class, 'exportPdf']
+    )->name('admin.reports.pdf');
 });
 
 Route::prefix('admin')

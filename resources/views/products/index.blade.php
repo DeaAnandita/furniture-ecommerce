@@ -89,7 +89,7 @@
 <section class="relative rounded-[24px] md:rounded-[32px] overflow-hidden mb-10 md:mb-10">
 
     <img 
-        src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1600&auto=format&fit=crop"
+        src="https://images.pexels.com/photos/6585757/pexels-photo-6585757.jpeg"
         class="w-full h-[350px] md:h-[550px] object-cover"
     >
 
@@ -317,19 +317,19 @@
         <div class="relative rounded-[28px] overflow-hidden h-[200px] md:h-[400px]
                     min-w-[260px] md:min-w-0 group flex-shrink-0">
 
-            <img src="https://images.unsplash.com/photo-1484101403633-562f891dc89a?q=80&w=1200&auto=format&fit=crop"
-                 class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            <img src="https://media.dekoruma.com/catalogue/NRA-375453.jpg?auto=webp&bg-color=ffffff&dpr=1.1&fit=bounds&optimize=high&pad=0&quality=60&trim-color=auto"
+                 class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
 
             <div class="absolute inset-0 bg-black/30"></div>
 
             <div class="absolute bottom-0 p-5 md:p-8 text-white">
 
                 <p class="uppercase tracking-[3px] text-[10px] md:text-xs mb-2">
-                    Living Room
+                    Lemari 2 Pintu
                 </p>
 
                 <h3 class="text-xl md:text-3xl font-semibold">
-                    Scandinavian Sofa
+                    Minimalis Modern
                 </h3>
 
             </div>
@@ -340,7 +340,7 @@
         <div class="relative rounded-[28px] overflow-hidden h-[200px] md:h-[400px]
                     min-w-[260px] md:min-w-0 group flex-shrink-0">
 
-            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1200&auto=format&fit=crop"
+            <img src="https://i.pinimg.com/736x/63/d2/2e/63d22e8991328d43330fab7aec3a1b90.jpg"
                  class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
 
             <div class="absolute inset-0 bg-black/30"></div>
@@ -348,11 +348,11 @@
             <div class="absolute bottom-0 p-5 md:p-8 text-white">
 
                 <p class="uppercase tracking-[3px] text-[10px] md:text-xs mb-2">
-                    Bedroom
+                    Lemari Sliding
                 </p>
 
                 <h3 class="text-xl md:text-3xl font-semibold">
-                    Elegant Bedroom
+                    Hemat Ruang
                 </h3>
 
             </div>
@@ -363,7 +363,7 @@
         <div class="relative rounded-[28px] overflow-hidden h-[200px] md:h-[400px]
                     min-w-[260px] md:min-w-0 group flex-shrink-0">
 
-            <img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=1200&auto=format&fit=crop"
+            <img src="https://i.pinimg.com/1200x/b9/57/d2/b957d21dd303b7839f4a078734ce388a.jpg"
                  class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
 
             <div class="absolute inset-0 bg-black/30"></div>
@@ -371,11 +371,11 @@
             <div class="absolute bottom-0 p-5 md:p-8 text-white">
 
                 <p class="uppercase tracking-[3px] text-[10px] md:text-xs mb-2">
-                    Decoration
+                    Lemari Premium
                 </p>
 
                 <h3 class="text-xl md:text-3xl font-semibold">
-                    Minimal Decor
+                    Elegan & Luas
                 </h3>
 
             </div>
@@ -637,13 +637,23 @@
                     </a>
 
                     <!-- ADD CART -->
+                    @auth
+
                     <button
                         onclick="addToCart({{ $product->id }}, this)"
                         class="w-full bg-[#8B5E3C] hover:bg-[#6F472D] text-white py-2.5 md:py-3 rounded-xl md:rounded-2xl text-xs md:text-sm font-medium transition-all duration-300 active:scale-95 add-cart-btn">
-
                         Add to Cart
+                    </button>
+
+                    @else
+
+                    <a href="{{ route('login') }}"
+                        class="block w-full text-center bg-[#8B5E3C] hover:bg-[#6F472D] text-white py-2.5 md:py-3 rounded-xl md:rounded-2xl text-xs md:text-sm font-medium transition-all duration-300">
+                        Add to Cart
+                    </a>
 
                     </button>
+                    @endauth
 
                 </div>
 
@@ -713,16 +723,16 @@
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
 
-        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=800&auto=format&fit=crop"
+        <img src="https://i.pinimg.com/1200x/ae/c2/0b/aec20b3608113ec5c97f611e868f64c4.jpg"
              class="rounded-[22px] md:rounded-[30px] h-[150px] md:h-[260px] w-full object-cover hover:scale-[1.02] transition duration-300">
 
-        <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=800&auto=format&fit=crop"
+        <img src="https://images.pexels.com/photos/32331031/pexels-photo-32331031.png"
              class="rounded-[22px] md:rounded-[30px] h-[150px] md:h-[260px] w-full object-cover hover:scale-[1.02] transition duration-300">
 
-        <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=800&auto=format&fit=crop"
+        <img src="https://images.pexels.com/photos/8134812/pexels-photo-8134812.jpeg"
              class="rounded-[22px] md:rounded-[30px] h-[150px] md:h-[260px] w-full object-cover hover:scale-[1.02] transition duration-300">
 
-        <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop"
+        <img src="https://images.pexels.com/photos/32331030/pexels-photo-32331030.png"
              class="rounded-[22px] md:rounded-[30px] h-[150px] md:h-[260px] w-full object-cover hover:scale-[1.02] transition duration-300">
 
     </div>

@@ -47,7 +47,7 @@
         <!-- LEFT -->
         <div class="hidden lg:block relative">
 
-            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1600&auto=format&fit=crop"
+            <img src="https://images.pexels.com/photos/6585757/pexels-photo-6585757.jpeg"
                 class="absolute inset-0 w-full h-full object-cover">
                 
 

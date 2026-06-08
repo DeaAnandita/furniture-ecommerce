@@ -7,6 +7,9 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 
+use Midtrans\Config;
+use Midtrans\Snap;
+
 class CheckoutController extends Controller
 {
     /**
@@ -14,12 +17,10 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-        // AMBIL CART USER
         $carts = Cart::with('product')
                     ->where('user_id', auth()->id())
                     ->get();
 
-        // CEK KOSONG
         if($carts->count() < 1){
 
             return redirect('/cart')
@@ -27,7 +28,6 @@ class CheckoutController extends Controller
 
         }
 
-        // HITUNG TOTAL
         $total = 0;
 
         foreach($carts as $cart){
@@ -47,7 +47,7 @@ class CheckoutController extends Controller
 
         ]);
 
-        // CREATE ORDER ITEMS
+        // ORDER ITEMS
         foreach($carts as $cart){
 
             OrderItem::create([
@@ -67,9 +67,7 @@ class CheckoutController extends Controller
         // HAPUS CART
         Cart::where('user_id', auth()->id())->delete();
 
-        // REDIRECT
-        return redirect('/cart')
-            ->with('success', 'Checkout berhasil! Silakan lakukan pembayaran dan tunggu konfirmasi admin.');
-
+        // REDIRECT KE HALAMAN PAYMENT
+        return redirect()->route('payment.index', $order->id);
     }
 }

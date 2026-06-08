@@ -197,13 +197,23 @@
             <div class="flex flex-col sm:flex-row gap-4">
 
                 <!-- ADD TO CART -->
+                @auth
+
                 <button
                     onclick="addToCart({{ $product->id }}, this)"
                     class="primary-btn flex-1 text-white py-4 rounded-full text-sm md:text-lg font-medium">
+                </button>
+
+                @else
+
+                <a href="{{ route('login') }}"
+                class="primary-btn flex-1 text-center text-white py-4 rounded-full text-sm md:text-lg font-medium block">
 
                     Add to Cart
 
-                </button>
+                </a>
+
+                @endauth
 
                 <!-- BACK -->
                 <a href="/"
